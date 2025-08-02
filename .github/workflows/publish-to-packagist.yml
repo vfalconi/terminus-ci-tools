@@ -3,6 +3,7 @@ name: Publish on release
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -10,4 +11,4 @@ jobs:
     name: Publish to packagist.org
     steps:
       - name: Update packagist<>github
-        run: curl -X POST -H'Content-Type:application/json' -d '{"repository":"https://github.com/${{ github.repository }}"}' https://packagist.org/api/update-package?username=${{ vars.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}
+        run: echo https://packagist.org/api/update-package?username=${{ vars.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}
