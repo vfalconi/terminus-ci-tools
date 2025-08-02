@@ -1,0 +1,35 @@
+name: Code quality
+on:
+  push:
+
+jobs:
+  phpcompatibility:
+    runs-on: ubuntu-latest
+    name: PHP Compatibility
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: PHPCompatibility
+        uses: pantheon-systems/phpcompatibility-action@v1
+        with:
+          test-versions: 7.4-
+  code-quality:
+    runs-on: ubuntu-latest
+    name: Code quality
+    steps:
+      - name: Add safe directory for git
+        run: git config --global --add safe.directory /app
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+      - name: Install more dependencies
+        run: |
+          composer install-tools
+          mkdir -p ~/terminus && cd ~/terminus
+          curl -L https://github.com/pantheon-systems/terminus/releases/download/4.0.1/terminus.phar --output terminus
+          chmod +x terminus
+          ./terminus self:update
+          sudo ln -s ~/terminus/terminus /usr/local/bin/terminus
+      - name: Run tests
+        run: composer test
