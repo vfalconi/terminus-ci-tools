@@ -1,4 +1,5 @@
 # Terminus CI tools
+![Packagist Version](https://img.shields.io/packagist/v/vfalconi/terminus-ci-tools)
 
 ## Configuration
 
