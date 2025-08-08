@@ -45,7 +45,6 @@ class CheckEnvCommand extends TerminusCommand implements SiteAwareInterface
                 $this->log()->info('{site} has changes to deploy', $fields);
                 return 'deployable';
             } else {
-                $this->log->error('nothing to deploy');
                 throw new TerminusException('{site}\'s {env} has nothing to deploy', $fields);
             }
         }
